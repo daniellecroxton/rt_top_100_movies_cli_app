@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/rt_top_100_movies_cli_app/cli"
+
+RtTop100MoviesCliApp::CLI.new.call

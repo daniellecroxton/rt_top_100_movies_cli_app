@@ -3,13 +3,14 @@ require_relative "../lib/movie.rb"
 require 'nokogiri'
 
 
-class CommandLineInterface
+class RtTop100MoviesCliApp::CLI
   BASE_PATH = "http://www.rottentomatoes.com/"
 
-  def run
-    create_movies
-    add_movie_details
-    display_movies
+  def call
+    puts "********* Best of Rotten Tomatoes: TOP 100 MOVIES OF ALL TIME *********"
+    # create_movies
+    # add_movie_details
+    # display_movies
   end
 
   def create_movies
