@@ -1,4 +1,4 @@
-class Movie
+class RtTop100MoviesCliApp::Movie
 
   attr_accessor :title, :tomatometer_score, :audience_score, :release_date, :rating, :genre, :director, :synopsis
 

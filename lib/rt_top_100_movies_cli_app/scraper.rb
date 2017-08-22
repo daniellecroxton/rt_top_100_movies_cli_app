@@ -1,7 +1,4 @@
-require 'open-uri'
-require 'pry'
-
-class Scraper
+class RtTop100MoviesCliApp::Scraper
 
   def self.scrape_top_100
     top_100_page = Nokogiri::HTML(open("https://www.rottentomatoes.com/top/bestofrt/"))
