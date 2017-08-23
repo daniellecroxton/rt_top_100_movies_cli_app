@@ -6,7 +6,7 @@ class RtTop100MoviesCliApp::Scraper
     top_100_page.css("#top_movies_main .table").each do | movie |
       movie_name = movie.css("a.unstyled.articleLink").text
       movies << {name: movie_name}
-      # binding.pry
+      binding.pry
     end
     movies
   end

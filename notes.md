@@ -41,4 +41,5 @@ Git add .
 Git commit -m “comment”
 Git push origin master
 
-ruby lib/file.rb
+ruby bin/rt-top-100-movies-cli-app
+ruby bin/console
