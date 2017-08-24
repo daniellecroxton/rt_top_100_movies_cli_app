@@ -6,8 +6,9 @@ class Scraper
     top_100_page = Nokogiri::HTML(open(main_url))
     movies = []
     top_100_page.css("#top_movies_main .table").each do | movie |
-      movie_name = movie.css("a.unstyled.articleLink").text
-      movies << {name: movie_name}
+      movie_title = movie.css("a.unstyled.articleLink").text
+      movie_url = movie.css("a").attr("href").value
+      movies << {title: movie_title, movie_url: movie_url}
       binding.pry
     end
     movies

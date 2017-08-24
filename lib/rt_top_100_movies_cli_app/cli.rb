@@ -1,5 +1,5 @@
 class RtTop100MoviesCliApp::CLI
-  BASE_PATH = "https://www.rottentomatoes.com/top/bestofrt/"
+  BASE_PATH = "https://www.rottentomatoes.com/top/bestofrt"
 
   def call
     puts "********* Best of Rotten Tomatoes: TOP 100 MOVIES OF ALL TIME *********"
@@ -9,11 +9,15 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def create_movies
-
+    movies_array = Scraper.scrape_top_100(BASE_PATH)
+    Student.create_from_collection(movies_array)
   end
 
   def add_movie_details
-
+    Movie.all.each do | movie |
+      details_hash = Scraper.scrape_movie(BASE_PATH + movie_url)
+      movie.add_details(details_hash)
+    end
   end
 
   def display_movies
