@@ -5,7 +5,7 @@ class RtTop100MoviesCliApp::CLI
     puts "********* Best of Rotten Tomatoes: TOP 100 MOVIES OF ALL TIME *********"
     create_movies
     add_movie_details
-    display_movies
+    start
   end
 
   def create_movies
@@ -20,13 +20,36 @@ class RtTop100MoviesCliApp::CLI
     end
   end
 
-  def display_movies
-    puts "
-    Welcome cinephile! Which of Rotten Tomatoes' Top 100 Movies would you like to see?"
+  def start
+    puts ""
+    puts "Welcome cinephile! Which of Rotten Tomatoes' Top 100 Movies would you like to see?"
     selection = "Please enter '1-25', '26-50', '51-75', '76-100', 'methodology', or 'exit':"
     puts selection
     input = gets.strip.downcase
-    while input !=exit
+
+    display_movies(input)
+
+    puts ""
+    puts "To learn more about a specific movie, please enter the movie's rank or to return to the previous menu, type 'menu':"
+    input = gets.strip.downcase
+
+    display_movie_details(input)
+
+    puts ""
+    puts "Would you like to see more movies? Y/N"
+    input = gets.strip.downcase
+      if input == "y"
+        start
+
+      else
+        puts ""
+        puts "The End. Thank you!"
+        exit
+      end
+  end
+
+  def display_movies(input)
+
     case input
       when "1-25"
 
@@ -45,7 +68,6 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def display_movie_details
-    puts "To learn more about a specific movie, please enter the movie's rank or to return to the previous menu, type 'menu':"
   end
 
 end
