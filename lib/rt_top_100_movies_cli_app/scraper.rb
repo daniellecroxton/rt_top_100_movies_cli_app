@@ -17,15 +17,33 @@ class Scraper
     movie_details = {}
     details_page = Nokogiri::HTML(open(details_url))
 
-    details_page.css(''). each do | detail |
-      movie_details[:tomatometer_score] = detail.css('').text,
-      movie_details[:audience_score] = detail.css('').text,
-      movie_details[:release_date] = detail.css('').text,
-      movie_details[:rating] = detail.css('').text,
-      movie_details[:genre] = detail.css('').text,
-      movie_details[:director] = detail.css('').text,
-      movie_details[:synopsis] = detail.css('').text,
+    details_page.css('#mainColumn'). each do | detail |
+      movie_details[:tomatometer_score] = detail.css('.critic_score .meter-value').text,
+      # .critic_score .meter-value
+      movie_details[:audience_score] = detail.css('.audience_score .meter-value').text,
+      #  .audience_score .meter-value
+      movie_details[:critic_consensus] = detail.css('.critic consensus').text,
+      # .critic consensus
+      movie_details[:synopsis] = detail.css('#movieSynopsis').text
+      # #movieSynopsis
     end
+
+    details_page.css('#mainColumn'). each do | detail |
+      if detail.css('.media-body .meta-label').text.include?("In Theaters:")
+        movie_details[:release_date] = detail.css('.media-body .meta-value').text,
+      # .media-body if .meta-value = "In Theaters:"
+      if detail.css('.media-body .meta-label').text.include?("Rating:")
+        movie_details[:rating] = detail.css('.media-body .meta-value').text,
+      # .media-body .meta-value if .meta-label = "Rating:"
+      if detail.css('.media-body .meta-label').text.include?("Genre:")
+        movie_details[:genre] = detail.css('.media-body .meta-value').text,
+      # .media-body .meta-value if .meta-label = "Genre:"
+      if detail.css('.media-body .meta-label').text.include?("Directed By:")
+        movie_details[:director] = detail.css('.media-body .meta-value').text
+      # .media-body .meta-value if .meta-label = "Directed By:"
+      end
+    end
+
     movie_details
   end
 
