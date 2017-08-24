@@ -1,5 +1,5 @@
 class RtTop100MoviesCliApp::CLI
-  BASE_PATH = "http://www.rottentomatoes.com/"
+  BASE_PATH = "https://www.rottentomatoes.com/top/bestofrt/"
 
   def call
     puts "********* Best of Rotten Tomatoes: TOP 100 MOVIES OF ALL TIME *********"

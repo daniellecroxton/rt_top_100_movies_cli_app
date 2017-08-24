@@ -4,8 +4,8 @@ class RtTop100MoviesCliApp::Movie
 
   @@all = []
 
-  def initialize(movie_hash)
-    @name = movie_hash[:name]
+  def initialize(title)
+    @title = title
     @@all << self
   end
 

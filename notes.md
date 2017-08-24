@@ -37,9 +37,8 @@ Submit all links on lesson
 Work with learn instructor (not question asking)
 
 
-Git add .
-Git commit -m “comment”
-Git push origin master
+git commit -am "comment"
+git push origin master
 
 ruby bin/rt-top-100-movies-cli-app
 ruby bin/console
