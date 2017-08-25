@@ -59,14 +59,14 @@ class RtTop100MoviesCliApp::CLI
       when "76-100"
         puts "D"
       when "methodology"
-        puts "M"
+        puts "Each critic from Rotten Tomatoes' discrete list gets one vote, weighted equally. A movie must have 40 or more rated reviews to be considered. The 'Adjusted Score' comes from a weighted formula (Bayesian) that we use that accounts for variation in the number of reviews per movie."
       else
       puts "I'm not quite sure what you meant."
       start
     end
   end
 
-  def display_movie_details
+  def display_movie_details(input)
     puts "This would be the movie info"
   end
 
