@@ -2,29 +2,30 @@ class RtTop100MoviesCliApp::CLI
   BASE_PATH = "https://www.rottentomatoes.com/top/bestofrt"
 
   def call
+    puts ""
     puts "********* Best of Rotten Tomatoes: TOP 100 MOVIES OF ALL TIME *********"
+    puts ""
+    puts "Welcome cinephile! Which of Rotten Tomatoes' Top 100 Movies would you like to see?"
     create_movies
     add_movie_details
     start
   end
 
   def create_movies
-    movies_array = Scraper.scrape_top_100(BASE_PATH)
-    Student.create_from_collection(movies_array)
+    movies_array = RtTop100MoviesCliApp::Scraper.scrape_top_100(BASE_PATH)
+    RtTop100MoviesCliApp::Movie.create_from_collection(movies_array)
   end
 
   def add_movie_details
-    Movie.all.each do | movie |
-      details_hash = Scraper.scrape_movie(BASE_PATH + movie_url)
+    RtTop100MoviesCliApp::Movie.all.each do | movie |
+      details_hash = RtTop100MoviesCliApp::Scraper.scrape_movie(BASE_PATH + movie_url)
       movie.add_details(details_hash)
     end
   end
 
   def start
     puts ""
-    puts "Welcome cinephile! Which of Rotten Tomatoes' Top 100 Movies would you like to see?"
-    selection = "Please enter '1-25', '26-50', '51-75', '76-100', 'methodology', or 'exit':"
-    puts selection
+    puts "Please enter '1-25', '26-50', '51-75', '76-100', 'methodology', or 'exit':"
     input = gets.strip.downcase
 
     display_movies(input)
@@ -40,7 +41,6 @@ class RtTop100MoviesCliApp::CLI
     input = gets.strip.downcase
       if input == "y"
         start
-
       else
         puts ""
         puts "The End. Thank you!"
@@ -49,25 +49,25 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def display_movies(input)
-
     case input
       when "1-25"
-
+        puts "A"
       when "26-50"
-
+        puts "B"
       when "51-75"
-
+        puts "C"
       when "76-100"
-
+        puts "D"
       when "methodology"
-
+        puts "M"
       else
-      puts "I'm not quite sure what you meant." selection
-      end
+      puts "I'm not quite sure what you meant."
+      start
     end
   end
 
   def display_movie_details
+    puts "This would be the movie info"
   end
 
 end
