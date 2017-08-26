@@ -12,7 +12,7 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def create_movies
-    movies_array = RtTop100MoviesCliApp::Scraper.scrape_top_100(BASE_PATH)
+    movies_array = RtTop100MoviesCliApp::Scraper.scrape_top_100("https://www.rottentomatoes.com/top/bestofrt")
     RtTop100MoviesCliApp::Movie.create_from_collection(movies_array)
   end
 
@@ -38,31 +38,45 @@ class RtTop100MoviesCliApp::CLI
 
     puts ""
     puts "Would you like to see more movies? Y/N"
+    puts ""
     input = gets.strip.downcase
       if input == "y"
         start
-      else
+      elsif input == "n"
         puts ""
         puts "The End. Thank you!"
+        puts ""
         exit
+      else
+        puts ""
+        puts "I'm not quite sure what you meant."
+        puts ""
+        start
       end
   end
 
   def display_movies(input)
     case input
-    when "1-25" || "26-50" || "51-75" || "76-100"
+      when "1-25","26-50","51-75","76-100"
+        puts ""
+        puts "********* Best of Rotten Tomatoes: TOP MOVIES OF ALL TIME #{input} *********"
+        puts ""
         list_from = input.to_i
-        puts ""
-        puts "********* Best of Rotten Tomatoes: #{input} TOP MOVIES OF ALL TIME *********"
-        puts ""
-        RtTop100MoviesCliApp::Movie.all[list_from-1, 25].each_with_index(list_from) do | movie, rank |
+        RtTop100MoviesCliApp::Movie.all[list_from-1, 25].each_with_index do | movie, rank |
           puts "#{rank}. #{movie.title}"
         end
       when "methodology"
-        puts "Each critic from Rotten Tomatoes' discrete list gets one vote, weighted equally. A movie must have 40 or more rated reviews to be considered. The 'Adjusted Score' comes from a weighted formula (Bayesian) that we use that accounts for variation in the number of reviews per movie."
+        puts ""
+        puts "Methodology: Each critic from Rotten Tomatoes' discrete list gets one vote, weighted equally. A movie must have 40 or more rated reviews to be considered. The 'Adjusted Score' comes from a weighted formula (Bayesian) that we use that accounts for variation in the number of reviews per movie."
+        puts ""
+      when "exit"
+        puts ""
+        puts "The End. Thank you!"
+        puts ""
+        exit
       else
-      puts "I'm not quite sure what you meant."
-      start
+        puts "I'm not quite sure what you meant."
+        start
     end
   end
 
