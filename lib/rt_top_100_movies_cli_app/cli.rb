@@ -50,14 +50,14 @@ class RtTop100MoviesCliApp::CLI
 
   def display_movies(input)
     case input
-      when "1-25"
-        puts "A"
-      when "26-50"
-        puts "B"
-      when "51-75"
-        puts "C"
-      when "76-100"
-        puts "D"
+    when "1-25" || "26-50" || "51-75" || "76-100"
+        list_from = input.to_i
+        puts ""
+        puts "********* Best of Rotten Tomatoes: #{input} TOP MOVIES OF ALL TIME *********"
+        puts ""
+        RtTop100MoviesCliApp::Movie.all[list_from-1, 25].each_with_index(list_from) do | movie, rank |
+          puts "#{rank}. #{movie.title}"
+        end
       when "methodology"
         puts "Each critic from Rotten Tomatoes' discrete list gets one vote, weighted equally. A movie must have 40 or more rated reviews to be considered. The 'Adjusted Score' comes from a weighted formula (Bayesian) that we use that accounts for variation in the number of reviews per movie."
       else
