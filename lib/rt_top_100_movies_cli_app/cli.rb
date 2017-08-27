@@ -26,7 +26,7 @@ class RtTop100MoviesCliApp::CLI
   def start
     puts ""
     puts "Please enter '1-25', '26-50', '51-75', '76-100', 'methodology', or 'exit':"
-    input = gets.strip.downcase
+    input = gets.chomp.downcase
 
     display_movies(input)
 
@@ -56,8 +56,7 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def display_movies(input)
-    case input
-      when "1-25","26-50","51-75","76-100"
+      if input == "1-25" || "26-50" || "51-75" || "76-100"
         puts ""
         puts "********* Best of Rotten Tomatoes: TOP MOVIES OF ALL TIME #{input} *********"
         puts ""
@@ -65,11 +64,11 @@ class RtTop100MoviesCliApp::CLI
         RtTop100MoviesCliApp::Movie.all[list_from-1, 25].each_with_index do | movie, rank |
           puts "#{rank}. #{movie.title}"
         end
-      when "methodology"
+      elsif input == "methodology"
         puts ""
         puts "Methodology: Each critic from Rotten Tomatoes' discrete list gets one vote, weighted equally. A movie must have 40 or more rated reviews to be considered. The 'Adjusted Score' comes from a weighted formula (Bayesian) that we use that accounts for variation in the number of reviews per movie."
         puts ""
-      when "exit"
+      elsif input == "exit"
         puts ""
         puts "The End. Thank you!"
         puts ""
@@ -81,7 +80,18 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def display_movie_details(input)
+    if input == "menu"
+      start
+    elsif input.to_i == 1..100
     puts "This would be the movie info"
+    elsif input == "exit"
+      puts ""
+      puts "The End. Thank you!"
+      puts ""
+      exit
+    else
+      puts "I'm not quite sure what you meant."
+      start
   end
 
 end
