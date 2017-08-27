@@ -62,7 +62,7 @@ class RtTop100MoviesCliApp::CLI
         puts "********* Best of Rotten Tomatoes: TOP MOVIES OF ALL TIME #{input} *********"
         puts ""
         list_from = input.to_i
-        RtTop100MoviesCliApp::Movie.all[list_from-1, 25].each_with_index do | movie, rank |
+        RtTop100MoviesCliApp::Movie.all[list_from-1, 25].each.with_index(list_from) do | movie, rank |
           puts "#{rank}. #{movie.title}"
         end
       elsif input == "methodology"
