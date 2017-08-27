@@ -1,5 +1,4 @@
 class RtTop100MoviesCliApp::CLI
-  BASE_PATH = "https://www.rottentomatoes.com/top/bestofrt"
 
   def call
     puts ""
@@ -18,7 +17,7 @@ class RtTop100MoviesCliApp::CLI
 
   def add_movie_details
     RtTop100MoviesCliApp::Movie.all.each do | movie |
-      details_hash = RtTop100MoviesCliApp::Scraper.scrape_movie(BASE_PATH + movie_url)
+      details_hash = RtTop100MoviesCliApp::Scraper.scrape_movie("https://www.rottentomatoes.com/top/bestofrt" + movie_url)
       movie.add_details(details_hash)
     end
   end
@@ -31,10 +30,12 @@ class RtTop100MoviesCliApp::CLI
     display_movies(input)
 
     puts ""
-    puts "To learn more about a specific movie, please enter the movie's rank or to return to the previous menu, type 'menu':"
-    input = gets.strip.downcase
+    puts "To learn more about a specific movie, please enter the movie's rank:"
+    input = gets.strip.to_i
 
-    display_movie_details(input)
+    selected_movie = RtTop100MoviesCliApp::Movie.all[input - 1]
+
+    display_movie_details(selected_movie)
 
     puts ""
     puts "Would you like to see more movies? Y/N"
@@ -56,7 +57,7 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def display_movies(input)
-      if input == "1-25" || "26-50" || "51-75" || "76-100"
+      if input == "1-25" || input == "26-50" || input == "51-75" || input == "76-100"
         puts ""
         puts "********* Best of Rotten Tomatoes: TOP MOVIES OF ALL TIME #{input} *********"
         puts ""
@@ -80,18 +81,14 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def display_movie_details(input)
-    if input == "menu"
-      start
-    elsif input.to_i == 1..100
-    puts "This would be the movie info"
-    elsif input == "exit"
+    if input.to_i == (1..100)
       puts ""
-      puts "The End. Thank you!"
+      puts "********* Best of Rotten Tomatoes: #{movie.title} *********"
       puts ""
-      exit
     else
       puts "I'm not quite sure what you meant."
       start
+    end
   end
 
 end
