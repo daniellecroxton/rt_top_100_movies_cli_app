@@ -25,15 +25,15 @@ class RtTop100MoviesCliApp::CLI
   def start
     puts ""
     puts "Please enter '1-25', '26-50', '51-75', '76-100', 'methodology', or 'exit':"
-    input = gets.chomp.downcase
+    input = gets.strip.downcase
 
     display_movies(input)
 
     puts ""
     puts "To learn more about a specific movie, please enter the movie's rank:"
-    input = gets.strip.to_i
+    input = gets.to_i
 
-    selected_movie = RtTop100MoviesCliApp::Movie.all[input - 1]
+    selected_movie = RtTop100MoviesCliApp::Movie.all[input-1]
 
     display_movie_details(selected_movie)
 
@@ -81,7 +81,7 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def display_movie_details(input)
-    if input.to_i == (1..100)
+    if input>=1 && input<=100
       puts ""
       puts "********* Best of Rotten Tomatoes: #{movie.title} *********"
       puts ""
