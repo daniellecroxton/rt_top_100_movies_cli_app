@@ -85,6 +85,18 @@ class RtTop100MoviesCliApp::CLI
       puts ""
       puts "********* Best of Rotten Tomatoes: #{movie.title} *********"
       puts ""
+      puts "Title:  #{movie.title}"
+      puts ""
+      puts "Tomatometer Score: #{movie.tomatometer_score}"
+      puts "Audience Score: #{movie.audience_score}"
+      puts "Critic Consensus: #{movie.critic_consensus}"
+      puts ""
+      puts "Rated: #{movie.rating}"
+      puts "Genre: #{movie.genre}"
+      puts "Released: #{movie.release_date}"
+      puts "Directed by: #{movie.director}"
+      puts "Synopsis: #{movie.synopsis}"
+      puts ""
     else
       puts "I'm not quite sure what you meant."
       start
