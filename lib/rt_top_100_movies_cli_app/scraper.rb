@@ -3,13 +3,14 @@ require 'pry'
 class RtTop100MoviesCliApp::Scraper
 
   def self.scrape_top_100(main_url)
-    top_100_page = Nokogiri::HTML(open(main_url))
+    top_100_page = Nokogiri::HTML(open("https://www.rottentomatoes.com/top/bestofrt"))
     movies = []
-    top_100_page.css("#top_movies_main .table tr").each do | movie |
+    # binding.pry
+
+    top_100_page.css(".table td").each do | movie |
       movie_title = movie.css("a").text
       movie_url = movie.css("a").attr("href").value
       movies << {title: movie_title, movie_url: movie_url}
-      binding.pry
     end
     movies
   end
