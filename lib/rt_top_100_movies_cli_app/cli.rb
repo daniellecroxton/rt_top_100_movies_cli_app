@@ -17,7 +17,7 @@ class RtTop100MoviesCliApp::CLI
 
   def add_movie_details
     RtTop100MoviesCliApp::Movie.all.each do | movie |
-      details_hash = RtTop100MoviesCliApp::Scraper.scrape_movie("https://www.rottentomatoes.com/top/bestofrt" + movie_url)
+      details_hash = RtTop100MoviesCliApp::Scraper.scrape_movie("https://www.rottentomatoes.com/top/bestofrt" + movie.movie_url)
       movie.add_details(details_hash)
     end
   end
