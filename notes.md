@@ -42,3 +42,4 @@ git push origin master
 
 ruby bin/rt-top-100-movies-cli-app
 ruby bin/console
+cd development/learn/code/rt_top_100_movies_cli_app

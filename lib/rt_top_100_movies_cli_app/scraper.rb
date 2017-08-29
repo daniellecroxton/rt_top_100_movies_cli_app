@@ -5,11 +5,12 @@ class RtTop100MoviesCliApp::Scraper
   def self.scrape_top_100(main_url)
     top_100_page = Nokogiri::HTML(open("https://www.rottentomatoes.com/top/bestofrt"))
     movies = []
-    # binding.pry
 
-    top_100_page.css("#main_container table td").each do | movie |
-      movie_title = movie.css("a").text
-      movie_url = movie.css("a").attr("href").value if movie.css("a") != nil
+    top_100_page.css("#main_container table .best-all-time").each do | movie |
+      binding.pry
+
+      movie_title = movie.next.next.text
+      movie_url = movie.next.next.children.attribute("href").value
       movies << {title: movie_title, movie_url: movie_url}
     end
     movies
