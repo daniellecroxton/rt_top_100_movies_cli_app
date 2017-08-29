@@ -11,8 +11,8 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def create_movies
-    movies_array = RtTop100MoviesCliApp::Scraper.scrape_top_100("https://www.rottentomatoes.com/top/bestofrt")
-    RtTop100MoviesCliApp::Movie.create_from_collection(movies_array)
+    movies_hash = RtTop100MoviesCliApp::Scraper.scrape_top_100("https://www.rottentomatoes.com/top/bestofrt")
+    RtTop100MoviesCliApp::Movie.create_from_collection(movies_hash)
   end
 
   def add_movie_details

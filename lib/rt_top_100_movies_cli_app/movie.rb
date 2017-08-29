@@ -4,15 +4,16 @@ class RtTop100MoviesCliApp::Movie
 
   @@all = []
 
-  def initialize(title, movie_url)
+  def initialize
     @title = title
     @movie_url = movie_url
     @@all << self
   end
 
-  def self.create_from_collection(movies_array)
-    movies_array.each do | movie |
-      Movie.new(movie, movie_url)
+  def self.create_from_collection(movies_hash)
+    movies_hash.each do | attr, value |
+      movie = self.new
+      movie.send("#{attr}=", value)
     end
   end
 

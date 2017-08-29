@@ -7,7 +7,7 @@ class RtTop100MoviesCliApp::Scraper
     movies = []
 
     top_100_page.css("#main_container table .best-all-time").each do | movie |
-      binding.pry
+      # binding.pry
 
       movie_title = movie.next.next.text
       movie_url = movie.next.next.children.attribute("href").value
