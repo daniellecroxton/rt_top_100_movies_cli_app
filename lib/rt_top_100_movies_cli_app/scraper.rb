@@ -7,9 +7,9 @@ class RtTop100MoviesCliApp::Scraper
     movies = []
     # binding.pry
 
-    top_100_page.css(".table td").each do | movie |
+    top_100_page.css("#main_container table td").each do | movie |
       movie_title = movie.css("a").text
-      movie_url = movie.css("a").attr("href").value
+      movie_url = movie.css("a").attr("href").value if movie.css("a") != nil
       movies << {title: movie_title, movie_url: movie_url}
     end
     movies
