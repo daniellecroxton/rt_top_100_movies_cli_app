@@ -11,14 +11,18 @@ class RtTop100MoviesCliApp::CLI
   end
 
   def create_movies
-    movies_hash = RtTop100MoviesCliApp::Scraper.scrape_top_100("https://www.rottentomatoes.com/top/bestofrt")
+    movies_array = RtTop100MoviesCliApp::Scraper.scrape_top_100("http://www.imdb.com/list/ls055592025/")
+    movies_array.each do | movies_hash |
     RtTop100MoviesCliApp::Movie.create_from_collection(movies_hash)
+    end
   end
 
   def add_movie_details
     RtTop100MoviesCliApp::Movie.all.each do | movie |
-      details_hash = RtTop100MoviesCliApp::Scraper.scrape_movie("https://www.rottentomatoes.com/top/bestofrt" + movie.movie_url)
+      details_hash = RtTop100MoviesCliApp::Scraper.scrape_movie("http://www.imdb.com/#{movie.movie_url}")
       movie.add_details(details_hash)
+      # binding.pry
+
     end
   end
 
@@ -80,27 +84,27 @@ class RtTop100MoviesCliApp::CLI
     end
   end
 
-  def display_movie_details(input)
-    if input>=1 && input<=100
+  def display_movie_details(selected_movie)
+    # if selected_movie >= 1 && selected_movie <= 100
       puts ""
-      puts "********* Best of Rotten Tomatoes: #{movie.title} *********"
+      puts "********* Best of Rotten Tomatoes: #{RtTop100MoviesCliApp::Movie.title} *********"
       puts ""
-      puts "Title:  #{movie.title}"
+      puts "Title:  #{RtTop100MoviesCliApp::Movie.title}"
       puts ""
-      puts "Tomatometer Score: #{movie.tomatometer_score}"
-      puts "Audience Score: #{movie.audience_score}"
-      puts "Critic Consensus: #{movie.critic_consensus}"
+      puts "Tomatometer Score: #{RtTop100MoviesCliApp::Movie.tomatometer_score}"
+      puts "Audience Score: #{RtTop100MoviesCliApp::Movie.audience_score}"
+      puts "Critic Consensus: #{RtTop100MoviesCliApp::Movie.critic_consensus}"
       puts ""
-      puts "Rated: #{movie.rating}"
-      puts "Genre: #{movie.genre}"
-      puts "Released: #{movie.release_date}"
-      puts "Directed by: #{movie.director}"
-      puts "Synopsis: #{movie.synopsis}"
+      puts "Rated: #{RtTop100MoviesCliApp::Movie.rating}"
+      puts "Genre: #{RtTop100MoviesCliApp::Movie.genre}"
+      puts "Released: #{RtTop100MoviesCliApp::Movie.release_date}"
+      puts "Directed by: #{RtTop100MoviesCliApp::Movie.director}"
+      puts "Synopsis: #{RtTop100MoviesCliApp::Movie.synopsis}"
       puts ""
-    else
-      puts "I'm not quite sure what you meant."
-      start
-    end
+    # else
+    #   puts "I'm not quite sure what you meant."
+    #   start
+    # end
   end
 
 end

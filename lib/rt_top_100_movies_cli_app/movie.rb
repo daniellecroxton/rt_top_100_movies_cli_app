@@ -11,8 +11,8 @@ class RtTop100MoviesCliApp::Movie
   end
 
   def self.create_from_collection(movies_hash)
+    movie = self.new
     movies_hash.each do | attr, value |
-      movie = self.new
       movie.send("#{attr}=", value)
     end
   end
@@ -26,6 +26,10 @@ class RtTop100MoviesCliApp::Movie
 
   def self.all
     @@all
+  end
+
+  def self.find(id)
+    self.all[id-1]
   end
 
 end

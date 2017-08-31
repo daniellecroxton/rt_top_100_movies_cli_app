@@ -3,15 +3,20 @@ require 'pry'
 class RtTop100MoviesCliApp::Scraper
 
   def self.scrape_top_100(main_url)
-    top_100_page = Nokogiri::HTML(open("https://www.rottentomatoes.com/top/bestofrt"))
+    top_100_page = Nokogiri::HTML(open(main_url))
     movies = []
 
-    top_100_page.css("#main_container table .best-all-time").each do | movie |
+    # top_100_page.css("#main_container .movie_list td").each do | movie |
+    # top_100_page.xpath("html/body/table[1]/tr/td/a")
+    # top_100_list = top_100_page.css("table").drop(3)
+
+    top_100_page.css(".list.detail .info").each do | movie |
       # binding.pry
 
-      movie_title = movie.next.next.text
-      movie_url = movie.next.next.children.attribute("href").value
-      movies << {title: movie_title, movie_url: movie_url}
+      basic_movie_info = {}
+      basic_movie_info[:title] = movie.css("b a").text
+      basic_movie_info[:movie_url] = movie.css("a").attr("href").value
+      movies << basic_movie_info
     end
     movies
   end
@@ -20,7 +25,8 @@ class RtTop100MoviesCliApp::Scraper
     movie_details = {}
     details_page = Nokogiri::HTML(open(details_url))
 
-    details_page.css('#mainColumn').each do | detail |
+    details_page.css('heroic-overview').each do | detail |
+      binding.pry
       movie_details[:tomatometer_score] = detail.css('.critic_score .meter-value').text,
       movie_details[:audience_score] = detail.css('.audience_score .meter-value').text,
       movie_details[:critic_consensus] = detail.css('.critic consensus').text,
